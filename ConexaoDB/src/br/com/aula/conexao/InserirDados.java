@@ -3,28 +3,26 @@ package br.com.aula.conexao;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
+import java.util.Scanner;
 
 public class InserirDados {
     public static void main(String[] args) {
+    	Scanner scan = new Scanner(System.in);
         Connection conexao = ConexaoDB.conectar();
         if (conexao != null) {
             String sql = "INSERT INTO alunos (nome, idade) VALUES (?, ?)";
             try {
                 PreparedStatement stmt = conexao.prepareStatement(sql);
                 
-                // Inserir primeiro registro
-                stmt.setString(1, "João Silva");
-                stmt.setInt(2, 20);
-                stmt.executeUpdate();
+                System.out.print("Digite o NOME do aluno novo: ");
+                String nome  = scan.nextLine();
                 
-                // Inserir segundo registro
-                stmt.setString(1, "Maria Souza");
-                stmt.setInt(2, 22);
-                stmt.executeUpdate();
+                System.out.print("Digite a IDADE do aluno novo: ");
+                int idade = scan.nextInt();
                 
-                // Inserir terceiro registro
-                stmt.setString(1, "Pedro Santos");
-                stmt.setInt(2, 25);
+                
+                stmt.setString(1, nome);
+                stmt.setInt(2, idade);
                 stmt.executeUpdate();
                 
                 System.out.println("Dados inseridos com sucesso!");
@@ -38,5 +36,6 @@ public class InserirDados {
                 }
             }
         }
+        /*scan.close();*/	
     }
 }

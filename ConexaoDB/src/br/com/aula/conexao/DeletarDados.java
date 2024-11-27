@@ -3,18 +3,22 @@ package br.com.aula.conexao;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
+import java.util.Scanner;
 
 public class DeletarDados {
     public static void main(String[] args) {
-        // Conectar ao banco de dados
+    	Scanner scan = new Scanner(System.in);
         Connection conexao = ConexaoDB.conectar();
         if (conexao != null) {
-            String sql = "DELETE FROM alunos WHERE nome = ?";
+            String sql = "DELETE FROM alunos WHERE id = ?";
             try (PreparedStatement stmt = conexao.prepareStatement(sql)) {
-                // Definir o nome do aluno a ser excluído
-                stmt.setString(1, "Maria Souza");  // Exemplo: Maria Souza
 
-                // Executar a exclusão
+            	System.out.print("Digite o ID a ser excluido: ");
+            	int id = scan.nextInt();
+            	
+                stmt.setInt(1, id);
+                stmt.executeUpdate();
+
                 int rowsAffected = stmt.executeUpdate();
 
                 if (rowsAffected > 0) {
@@ -32,5 +36,6 @@ public class DeletarDados {
                 }
             }
         }
+        /*scan.close();*/
     }
 }

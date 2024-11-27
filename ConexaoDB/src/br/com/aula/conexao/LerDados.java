@@ -7,7 +7,7 @@ import java.sql.SQLException;
 
 public class LerDados {
     public static void main(String[] args) {
-        // Conectar ao banco de dados
+
         Connection conexao = ConexaoDB.conectar();
         if (conexao != null) {
             String sql = "SELECT nome, idade FROM alunos";

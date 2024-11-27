@@ -1,5 +1,6 @@
 package br.com.aula.conexao;
 
+import java.sql.Connection;
 import java.util.Scanner;
 
 public class TabelaAlunosCLI {
@@ -8,27 +9,27 @@ public class TabelaAlunosCLI {
     
     public static void main(String[] args) {
     	
-    	InserirDados insert = new InserirDados();
+    	/*InserirDados insert = new InserirDados();
     	AtualizarDados update = new AtualizarDados();
     	DeletarDados delete = new DeletarDados();
-    	LerDados select = new LerDados();
+    	LerDados select = new LerDados();*/
         while (true) {
             exibirMenu();
             int opcao = scanner.nextInt();
-            scanner.nextLine();  // Limpar o buffer do scanner
+            scanner.nextLine();
 
             switch (opcao) {
 	            case 1:
-	                insert.main(args);
+	                InserirDados.main(args);
 	                break;
 	            case 2:
-	                update.main(args);
+	                AtualizarDados.main(args);
 	                break;
 	            case 3:
-	                delete.main(args);
+	                DeletarDados.main(args);
 	                break;
 	            case 4:
-	                select.main(args);
+	                LerDados.main(args);
 	                break;
 
                 case 0:
@@ -40,8 +41,10 @@ public class TabelaAlunosCLI {
         }
     }
 
-    // Função para exibir o menu
+
     private static void exibirMenu() {
+    	Connection conexao = ConexaoDB.conectar();
+        if (conexao != null) {
         System.out.println("\n=== Gerenciamento da Tabela de Alunos ===");
         System.out.println("1 - Inserir Dados");
         System.out.println("2 - Atualizar Dados");
@@ -49,5 +52,6 @@ public class TabelaAlunosCLI {
         System.out.println("4 - Ler Dados");
         System.out.println("0 - Sair");
         System.out.print("\nEscolha uma opção: ");
+        }
     }
 }
